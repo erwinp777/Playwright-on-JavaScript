@@ -5,9 +5,9 @@ export class Navigation {
         this.basketCounter = page.locator('[data-qa="header-basket-count"]')
 }
 getBasketCounter = async () => {
-    await expect(this.basketCounter).toBeVisible();
+    await this.basketCounter.waitFor() //TODO: await expect(this.basketCounter).toBeVisible() check mobile version
     const text = await this.basketCounter.innerText()
-    return parseInt(text, 10)
+    return parseInt(text, 10) // parseInt(text) to specify the radix (base 10)
 }
 goToCheckout = async () => {
     const checkoutLink = this.page.getByRole('link',{ name: 'Checkout' })

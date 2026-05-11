@@ -1,15 +1,14 @@
 import { expect } from "@playwright/test"
 import { Navigation } from "./Navigation.js"
 export class ProductsPage {
-//method
+
 constructor(page) {
     this.page = page
     this.addButton = page.locator('[data-qa="product-button"]')
     this.sortDropdown = page.locator('[data-qa="sort-dropdown"]')
     this.productTitle = page.locator('[data-qa="product-title"]')
 }
-//function, async b/c using awaits
-openPage = async() => {
+openPage = async() => { //function, async b/c using awaits
     await this.page.goto("/")
 }
 addToBasket = async (index) => {
@@ -22,7 +21,7 @@ addToBasket = async (index) => {
   await expect(AddButton).toHaveText("Remove from Basket")
   const basketCountAfterAdd = await navigation.getBasketCounter()
   //console.log("Basket Counter after add:", basketCountAfterAdd)
-  expect(basketCountAfterAdd).toBeGreaterThanOrEqual(basketCountBeforeAdd)
+  expect(basketCountAfterAdd).toBeGreaterThan(basketCountBeforeAdd)
 }
 sortByPriceLowToHigh = async () => {
     await this.sortDropdown.waitFor()
@@ -33,5 +32,4 @@ sortByPriceLowToHigh = async () => {
     expect(productTitleAfterSort).not.toEqual(productTitleBeforeSort)
     
 }
-
 }    
