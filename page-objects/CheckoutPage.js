@@ -37,6 +37,6 @@ export class CheckoutPage {
         await this.userEmailInput.fill("admin")
         await this.userPasswordInput.fill("Admin123")
         await this.loginButton.click()
-        await this.page.waitForURL("/delivery-details", { timeout: 7000 })
+        await this.page.waitForURL(/\/delivery-details/, { timeout: 10000 })
     }
 }

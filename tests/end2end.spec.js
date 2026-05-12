@@ -4,13 +4,15 @@ import {Navigation} from "../page-objects/Navigation.js"
 import {CheckoutPage} from "../page-objects/CheckoutPage.js"
 import {DeliveryPage} from "../page-objects/DeliveryPage.js"
 import {deliveryDetails} from "../data/deliveryDetails.js"
+import { PaymentPage } from '../page-objects/paymentPage.js'
+import { paymentDetails } from '../data/paymentDetails.js'
 
-
-test.only("Product end2end", async ({page}) => {
+test.only("Product purchase end2end", async ({page}) => {
 const productsPage = new ProductsPage(page)
 const navigation = new Navigation(page)
 const checkoutPage = new CheckoutPage(page)
 const deliveryPage = new DeliveryPage(page)
+const paymentPage = new PaymentPage(page)
 
 await productsPage.openPage()
 await productsPage.sortByPriceLowToHigh()
@@ -24,5 +26,7 @@ await checkoutPage.continueToCheckout()
 await deliveryPage.fillDeliveryDetails(deliveryDetails)
 await deliveryPage.saveAddressButtonClick()
 await deliveryPage.confirmSavedAddress()
-await page.pause()
+await deliveryPage.continueToPayment()
+await paymentPage.activateDiscount()
+await paymentPage.fillPaymentDetailsAndPay(paymentDetails)
 })
